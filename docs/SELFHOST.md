@@ -92,16 +92,30 @@ it once per machine.
 
 ## Using it from your phone
 
-The **App Store / Play Store apps are compiled against `api.happier.dev` and have
-no runtime "custom server" setting** (the URL is baked in at build time via
-`EXPO_PUBLIC_HAPPIER_SERVER_URL`). Two options:
+The stock **App Store / Play Store apps default to Happier Cloud
+(`api.happier.dev`), but they support switching servers at runtime** — you do
+*not* have to rebuild the app to use your self-hosted server. The native fallback
+default lives in `apps/ui/sources/sync/domains/server/serverProfiles.ts`
+(`HAPPIER_CLOUD_SERVER_URL`); everything below overrides it per-device.
 
-- **Recommended — web UI as a PWA.** Open `https://hdev.tapnetix.com` in your
-  phone's browser and "Add to Home Screen". The light server serves the full web
-  client from your own origin. No rebuild, works immediately.
-- **Native app.** Rebuild `apps/ui` from this fork with
-  `EXPO_PUBLIC_HAPPIER_SERVER_URL=https://hdev.tapnetix.com` and sideload it. Only
-  needed if you specifically require the native app.
+Pick whichever is easiest:
+
+- **Recommended — scan the CLI connect QR.** Run `happier auth login` on a machine
+  whose `HAPPIER_SERVER_URL` points at `https://hdev.tapnetix.com` (see the CLI
+  section above). The connect QR/link it shows carries your server URL, and the
+  app auto-adds and switches to it on scan
+  (`useServerAutoAddFromRoute`, validated for reachability).
+- **Add it manually in the app.** Settings → Server → Add server →
+  `https://hdev.tapnetix.com`. (`AddTargetsSection` / `ServerSettingsScreen`.)
+- **Web UI as a PWA.** Open `https://hdev.tapnetix.com` in your phone's browser and
+  "Add to Home Screen". The light server serves the full web client from your own
+  origin.
+
+You only need to **rebuild** the app if you want your own build to *default* to
+your server (no source change needed — build `apps/ui` with
+`EXPO_PUBLIC_HAPPIER_SERVER_URL=https://hdev.tapnetix.com`). Changing the built-in
+`HAPPIER_CLOUD_SERVER_URL` default in source is a rebrand concern and is out of
+scope for this infra-only setup.
 
 ## Backups
 
