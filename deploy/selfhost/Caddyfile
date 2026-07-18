@@ -1,0 +1,24 @@
+# Happier self-host reverse proxy.
+#
+# Caddy terminates TLS (automatic Let's Encrypt certs) and proxies everything
+# — HTTP, the embedded web UI, and the Socket.IO WebSocket upgrade — to the
+# Happier server container on the internal Docker network.
+#
+# Requirements for automatic HTTPS to succeed:
+#   - HAPPIER_DOMAIN resolves (public DNS A/AAAA record) to this host.
+#   - Ports 80 and 443 are reachable from the internet.
+#
+# HAPPIER_DOMAIN is injected from the environment (see docker-compose.selfhost.yml).
+
+{
+	# Optional but recommended: set ACME_EMAIL in .env.selfhost for expiry notices.
+	# Caddy still issues certs without it.
+	email {$ACME_EMAIL:}
+}
+
+{$HAPPIER_DOMAIN} {
+	encode zstd gzip
+
+	# reverse_proxy transparently handles WebSocket upgrades (Socket.IO).
+	reverse_proxy happier:3005
+}

@@ -52,6 +52,8 @@ apps/server/output/
 # local env files
 .env*.local
 .env
+# self-host secrets (see docs/SELFHOST.md); never commit the filled-in file
+.env.selfhost
 
 # typescript
 *.tsbuildinfo
