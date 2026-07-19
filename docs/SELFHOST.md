@@ -112,8 +112,9 @@ Pick whichever is easiest:
   origin.
 
 You only need to **rebuild** the app if you want your own build to *default* to
-your server (no source change needed — build `apps/ui` with
-`EXPO_PUBLIC_HAPPIER_SERVER_URL=https://hdev.tapnetix.com`). Changing the built-in
+your server (no source change needed). This fork ships ready-to-use build recipes
+and dedicated EAS profiles (`tapnetix`, `tapnetix-apk`) for exactly that — see
+[`SELFHOST-APP-BUILD.md`](./SELFHOST-APP-BUILD.md). Changing the built-in
 `HAPPIER_CLOUD_SERVER_URL` default in source is a rebrand concern and is out of
 scope for this infra-only setup.
 

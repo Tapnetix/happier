@@ -255,6 +255,30 @@
     },
     "canary-apk": {
       "extends": "internalpreview-apk"
+    },
+    "tapnetix": {
+      "extends": "base",
+      "environment": "production",
+      "autoIncrement": true,
+      "distribution": "internal",
+      "channel": "production",
+      "env": {
+        "APP_ENV": "production",
+        "EXPO_PUBLIC_HAPPIER_SERVER_URL": "https://hdev.tapnetix.com",
+        "EXPO_PUBLIC_HAPPY_SERVER_URL": "https://hdev.tapnetix.com",
+        "EXPO_APP_NAME": "Happier (Tapnetix)",
+        "EXPO_APP_BUNDLE_ID": "com.tapnetix.happier",
+        "EXPO_ANDROID_PACKAGE": "com.tapnetix.happier",
+        "EXPO_APP_SCHEME": "happier-tapnetix"
+      }
+    },
+    "tapnetix-apk": {
+      "extends": "tapnetix",
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleRelease -x lintVitalRelease -x lintVitalAnalyzeRelease"
+      }
     }
   },
   "submit": {
